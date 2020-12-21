@@ -4,6 +4,7 @@
     margin: 0 auto;
     grid-template-rows: 60px 1fr;
     grid-template-columns: 2fr 10fr;
+    color: #fff;
     /*grid-gap: 10px;*/
 
     grid-template-areas:
@@ -11,9 +12,11 @@
     "n c";
 }
 
+/*.content img {*/
+/*    width: 80%;*/
+/*}*/
 
-
-
-.content img {
-    width: 80%;
+.app-wrapper-content {
+    grid-area: c;
+    background-color: cornflowerblue;
 }

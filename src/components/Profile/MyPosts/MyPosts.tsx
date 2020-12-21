@@ -1,17 +1,46 @@
 import React from "react";
-import s from '../Post.module.css';
+// import s from '../Post.module.css';
+import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import './MyPosts.module.css';
+import {PostType} from "../../../redux/state";
 
-function MyPosts() {
-    return <div>
+type MyPostsType = {
+    posts: Array<PostType>
+    addPost: (message: string) => void
+
+}
+
+function MyPosts(props: MyPostsType) {
+
+    let postsElements = props.posts.map(p => <Post message={p.message} likeCounter={p.likesCount}/>);
+
+    let newPostElement = React.createRef<HTMLTextAreaElement>();
+
+    let addPost = () => {
+        debugger
+        let text = newPostElement.current
+        if (text) {
+            props.addPost(text.value)
+            text.value = '';
+        }
+
+    }
+    return <div className={s.postsBlock}>
         <div>
-            My posts
+            <h3>My posts</h3>
+        </div>
+        <div>
+            <div>
+                <textarea ref={newPostElement}></textarea>
+            </div>
+            <div>
+                <button onClick={addPost}>Add post</button>
+            </div>
         </div>
 
         <div className={"s.posts"}>
-            <Post message={"Hi, how are you?"} likeCounter={15}/>
-            <Post message={"It's my first post!"} likeCounter={8} />
+            {postsElements}
         </div>
     </div>
 }
