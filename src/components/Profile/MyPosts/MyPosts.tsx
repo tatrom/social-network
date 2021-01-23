@@ -1,14 +1,14 @@
-import React from "react";
+import React, {ChangeEvent, KeyboardEvent} from "react";
 // import s from '../Post.module.css';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import './MyPosts.module.css';
-import {PostType} from "../../../redux/state";
+import {ActionTypes, addMessageCreator, changeTextCreator, PostType} from "../../../redux/state";
 
 type MyPostsType = {
     posts: Array<PostType>
-    addPost: (message: string) => void
-
+    value: string
+    dispatch: (action: ActionTypes) => void
 }
 
 function MyPosts(props: MyPostsType) {
@@ -18,21 +18,35 @@ function MyPosts(props: MyPostsType) {
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     let addPost = () => {
-        debugger
-        let text = newPostElement.current
+        let text = newPostElement.current?.value
         if (text) {
-            props.addPost(text.value)
-            text.value = '';
+            props.dispatch(addMessageCreator(text))
         }
 
     }
+    const onKeyPressHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        let text = newPostElement.current?.value
+        if ( e.key === "Enter" ) {
+            if (text) {
+                props.dispatch(addMessageCreator(text))
+            }
+        }
+    }
+    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        debugger
+        const newValue = e.currentTarget.value
+        if (newValue !== undefined) {
+            props.dispatch(changeTextCreator(newValue))
+        }
+    }
+
     return <div className={s.postsBlock}>
         <div>
             <h3>My posts</h3>
         </div>
         <div>
             <div>
-                <textarea ref={newPostElement}></textarea>
+                <textarea value={props.value} ref={newPostElement} onKeyPress={onKeyPressHandler} onChange={onChangeHandler}/>
             </div>
             <div>
                 <button onClick={addPost}>Add post</button>

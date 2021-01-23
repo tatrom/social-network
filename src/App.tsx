@@ -10,52 +10,15 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import s from "./components/Dialogs/Dialogs.module.css";
 import {Users} from "./components/Users/Users";
-import {RootStateType} from "./redux/state";
-
-// type DialogsType = {
-//     id: number
-//     name: string
-// }
-// type MessageType = {
-//     id: number
-//     message: string
-// }
-//
-// type PostsType = {
-//     id: number
-//     message: string
-//     likesCount: number
-// }
-//
-// type UsersType = {
-//     id: number
-//     name: string
-//     date: number
-// }
-// type AppType = {
-//     state: {
-//         profilePage: {
-//             posts: Array<PostsType>
-//         }
-//         messagesPage: {
-//             dialogs: Array<DialogsType>
-//             messages: Array<MessageType>
-//
-//         }
-//         usersPage: {
-//             users: Array<UsersType>
-//         }
-//     }
-// }
+import {RootStateType, StoreType} from "./redux/state";
 
 
-
-type AppType2 = {
-    state: RootStateType
-    addPost: (message: string) => void
+type AppType = {
+    store: StoreType
 }
 
-const App = (props: AppType2) => {
+const App = (props: AppType) => {
+    const state = props.store.getState();
     return (
         <BrowserRouter>
             <div className={"app-wrapper"}>
@@ -64,8 +27,8 @@ const App = (props: AppType2) => {
 
                 <div className={"app-wrapper-content"}>
                     <Route path='/dialogs'
-                           render={() => <Dialogs state={props.state.messagesPage}/>}/>
-                    <Route path='/profile' render={() => <Profile posts={props.state.profilePage} addPost={props.addPost}/>}/>
+                           render={() => <Dialogs state={state.messagesPage} dispatch={props.store.dispatch.bind(props.store)}/>}/>
+                    <Route path='/profile' render={() => <Profile posts={state.profilePage} dispatch={props.store.dispatch.bind(props.store)} value={state.profilePage.newText} />}/>
                     <Route path={'/news'}
                            render={() => <News/>}/>
                     <Route path={'/music'}
@@ -73,7 +36,7 @@ const App = (props: AppType2) => {
                     <Route path={'/settings'}
                            render={() => <Settings/>}/>
                     <Route path={'/users'}
-                           render={() => <Users state={props.state.usersPage}/>}/>
+                           render={() => <Users state={state.usersPage}/>}/>
                 </div>
             </div>
         </BrowserRouter>

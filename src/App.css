@@ -12,10 +12,6 @@
     "n c";
 }
 
-/*.content img {*/
-/*    width: 80%;*/
-/*}*/
-
 .app-wrapper-content {
     grid-area: c;
     background-color: cornflowerblue;

@@ -3,21 +3,17 @@
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import state, {addPost, RootStateType} from './redux/state'
-import { rerenderEntireTree } from './render';
+import ReactDOM from "react-dom";
+import React from "react";
+import {store} from "./redux/state";
 
-// export let rerenderEntireTree = (state: RootStateType) => {
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <App state={state} addPost={addPost}/>
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// );
-// }
-debugger;
-rerenderEntireTree(state);
-debugger
-
-// reportWebVitals();
-
-// export default {}
+export let rerenderEntireTree = () => {
+    ReactDOM.render(
+        <React.StrictMode>
+            <App store={store}/>
+        </React.StrictMode>,
+        document.getElementById('root')
+    );
+}
+rerenderEntireTree()
+store.subscribe(rerenderEntireTree)

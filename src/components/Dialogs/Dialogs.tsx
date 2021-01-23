@@ -1,36 +1,32 @@
-import React from 'react';
+import React, {ChangeEvent, KeyboardEvent} from 'react';
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from './Message/Message';
-import { MessagesPageType } from '../../redux/state';
+import {ActionTypes, addNewMessageCreator, changeNewMessageCreator, MessagesPageType} from '../../redux/state';
 
 type DialogsTypeProps = {
     state: MessagesPageType
+    dispatch: (action: ActionTypes) => void
 }
 
 
 const Dialogs = (props: DialogsTypeProps) => {
 
-    // let dialogs = [
-    //     {id: 1, name: 'Dimych'},
-    //     {id: 2, name: 'Andrew'},
-    //     {id: 3, name: 'Sveta'},
-    //     {id: 4, name: 'Sasha'},
-    //     {id: 5, name: 'Viktor'},
-    //     {id: 6, name: 'Valera'},
-    //     ];
-    //
-    // let messages = [
-    //     {id: 1, message: 'Hi'},
-    //     {id: 2, message: 'How is your it kamasutra?'},
-    //     {id: 3, message: 'Yo'},
-    //     {id: 4, message: 'Yo'},
-    //     {id: 5, message: 'Yo'}
-    // ];
 
     let dialogsElements = props.state.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>);
     let messagesElements = props.state.messages.map(m => <Message message={m.message}/>)
 
+    const OnChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.dispatch(changeNewMessageCreator(e.currentTarget.value))
+    }
+    // const OnButtonKeyPressHandler = () => {
+    //         props.dispatch(addNewMessageCreator())
+    // }
+    const OnTextAreaKeyPressHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        if ( e.key === "Enter" ) {
+            props.dispatch(addNewMessageCreator())
+        }
+    }
     return <div>
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
@@ -38,6 +34,8 @@ const Dialogs = (props: DialogsTypeProps) => {
             </div>
             <div className={s.messages}>
                 {messagesElements}
+                <textarea value={props.state.newMessage} onChange={OnChangeHandler} onKeyPress={OnTextAreaKeyPressHandler}/>
+                <button onClick={() => props.dispatch(addNewMessageCreator())}>add</button>
             </div>
         </div>
     </div>
