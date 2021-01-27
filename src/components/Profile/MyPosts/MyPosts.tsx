@@ -3,41 +3,39 @@ import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import './MyPosts.module.css';
-import {ActionTypes, addMessageCreator, changeTextCreator, PostType} from "../../../redux/state";
+import {ActionTypes, PostType} from "../../../redux/store";
+import {addMessageCreator, changeTextCreator} from "../../../redux/profile-reducer";
 
 type MyPostsType = {
     posts: Array<PostType>
     value: string
-    dispatch: (action: ActionTypes) => void
+    addPost: (text: string) => void
+    updateNewPostText: (text: string) => void
 }
 
 function MyPosts(props: MyPostsType) {
 
     let postsElements = props.posts.map(p => <Post message={p.message} likeCounter={p.likesCount}/>);
-
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
-    let addPost = () => {
+    let onAddPost = () => {
         let text = newPostElement.current?.value
         if (text) {
-            props.dispatch(addMessageCreator(text))
+            props.addPost(text);
         }
 
     }
     const onKeyPressHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         let text = newPostElement.current?.value
-        if ( e.key === "Enter" ) {
+        if (e.key === "Enter") {
             if (text) {
-                props.dispatch(addMessageCreator(text))
+                props.addPost(text);
             }
         }
     }
-    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        debugger
-        const newValue = e.currentTarget.value
-        if (newValue !== undefined) {
-            props.dispatch(changeTextCreator(newValue))
-        }
+    const onChangeHandler = (newText: string) => {
+        props.updateNewPostText(newText);
+
     }
 
     return <div className={s.postsBlock}>
@@ -46,10 +44,11 @@ function MyPosts(props: MyPostsType) {
         </div>
         <div>
             <div>
-                <textarea value={props.value} ref={newPostElement} onKeyPress={onKeyPressHandler} onChange={onChangeHandler}/>
+                <textarea value={props.value} ref={newPostElement} onKeyPress={onKeyPressHandler}
+                          onChange={e => onChangeHandler(e.currentTarget.value)}/>
             </div>
             <div>
-                <button onClick={addPost}>Add post</button>
+                <button onClick={onAddPost}>Add post</button>
             </div>
         </div>
 

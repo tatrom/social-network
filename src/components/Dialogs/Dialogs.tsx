@@ -2,11 +2,13 @@ import React, {ChangeEvent, KeyboardEvent} from 'react';
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from './Message/Message';
-import {ActionTypes, addNewMessageCreator, changeNewMessageCreator, MessagesPageType} from '../../redux/state';
+import {ActionTypes, MessagesPageType} from '../../redux/store';
+import {addNewMessageCreator, changeNewMessageCreator} from '../../redux/messages-reducer';
 
 type DialogsTypeProps = {
     state: MessagesPageType
-    dispatch: (action: ActionTypes) => void
+    updateNewMessage: (text: string) => void
+    addMessage: () => void
 }
 
 
@@ -17,16 +19,21 @@ const Dialogs = (props: DialogsTypeProps) => {
     let messagesElements = props.state.messages.map(m => <Message message={m.message}/>)
 
     const OnChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(changeNewMessageCreator(e.currentTarget.value))
+        props.updateNewMessage(e.currentTarget.value)
     }
     // const OnButtonKeyPressHandler = () => {
     //         props.dispatch(addNewMessageCreator())
     // }
     const OnTextAreaKeyPressHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-        if ( e.key === "Enter" ) {
-            props.dispatch(addNewMessageCreator())
+        if (e.key === "Enter") {
+            props.addMessage()
         }
     }
+
+    const addMessageHandler = () => {
+        props.addMessage();
+    }
+
     return <div>
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
@@ -34,8 +41,9 @@ const Dialogs = (props: DialogsTypeProps) => {
             </div>
             <div className={s.messages}>
                 {messagesElements}
-                <textarea value={props.state.newMessage} onChange={OnChangeHandler} onKeyPress={OnTextAreaKeyPressHandler}/>
-                <button onClick={() => props.dispatch(addNewMessageCreator())}>add</button>
+                <textarea value={props.state.newMessage} onChange={OnChangeHandler}
+                          onKeyPress={OnTextAreaKeyPressHandler}/>
+                <button onClick={addMessageHandler}>add</button>
             </div>
         </div>
     </div>
