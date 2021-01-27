@@ -14,7 +14,7 @@ type MyPostsType = {
 }
 
 function MyPosts(props: MyPostsType) {
-
+    debugger
     let postsElements = props.posts.map(p => <Post message={p.message} likeCounter={p.likesCount}/>);
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 

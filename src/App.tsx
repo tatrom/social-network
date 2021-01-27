@@ -9,7 +9,7 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {Users} from "./components/Users/Users";
 import {ActionTypes, RootStateType} from "./redux/store";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 type AppType = {
     state: RootStateType

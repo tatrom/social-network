@@ -13,5 +13,4 @@ const usersReducer = (state: UsersPageType = initialState, action: ActionTypes) 
 
     return state
 }
-
 export default usersReducer;

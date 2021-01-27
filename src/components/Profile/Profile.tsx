@@ -3,7 +3,7 @@ import s from './Profile.module.css';
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {ActionTypes, ProfilePageType} from "../../redux/store";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import {MySuperPostContainer} from "./MyPosts/MyPostsContainer";
 
 // type ProfileType = {
 //     state: ProfilePageType
@@ -14,7 +14,7 @@ function Profile() {
     return (
         <div>
             <ProfileInfo/>
-            <MyPostsContainer />
+            <MySuperPostContainer />
         </div>
     )
 }
