@@ -24,17 +24,13 @@ let initialState = {
 const messagesReducer = (state: MessagesPageType = initialState, action: ActionTypes) => {
     switch (action.type) {
         case CHANGE_NEW_MESSAGE:
-            let stateCopy = {...state}
-            stateCopy.newMessage = action.message;
-            return stateCopy
+            debugger
+            return {...state, newMessage: action.message }
+
         case ADD_NEW_MESSAGE: {
             let message = state.newMessage.trim()
-            let stateCopy = {...state, messages: [...state.messages]}
-            if (message) {
-                stateCopy.messages.push({id: 5, message: state.newMessage})
-                stateCopy.newMessage = ''
-            }
-            return stateCopy
+            debugger
+             return {...state, messages: [...state.messages, {id: 6, message: message}], newMessage: ""}
         }
         default:
             return state
