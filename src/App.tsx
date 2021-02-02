@@ -10,6 +10,7 @@ import {Settings} from "./components/Settings/Settings";
 import {Users} from "./components/Users/Users";
 import {ActionTypes, RootStateType} from "./redux/store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import {UsersContainer} from "./components/Users/UsersContainer";
 
 type AppType = {
     state: RootStateType
@@ -35,7 +36,7 @@ const App = (props: AppType) => {
                     <Route path={'/settings'}
                            render={() => <Settings/>}/>
                     <Route path={'/users'}
-                           render={() => <Users state={state.usersPage}/>}/>
+                           render={() => <UsersContainer />}/>
                 </div>
             </div>
         </BrowserRouter>

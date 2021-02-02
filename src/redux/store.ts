@@ -26,10 +26,16 @@ type MessageType = {
     message: string
 }
 
-type UserType = {
+export type UserType = {
     id: number
-    name: string
-    date: number
+    followed: boolean
+    fullName: string
+    status: string
+    location: {
+        city: string
+        country: string
+    }
+    photo: string
 }
 
 export type ProfilePageType = {
@@ -68,8 +74,28 @@ type AddNewMessageType = {
     type: "ADD_NEW_MESSAGE"
 }
 
+type FollowUserType = {
+    type: "FOLLOW"
+    userId: number
+}
+type UnFollowUserType = {
+    type: "UNFOLLOW"
+    userId: number
+}
 
-export type ActionTypes = AddPostActionType | ChangeTextActionType | ChangeNewMessageType | AddNewMessageType
+type SetUsersType = {
+    type: "SET_USERS"
+    users: Array<UserType>
+}
+
+export type ActionTypes =
+    AddPostActionType
+    | ChangeTextActionType
+    | ChangeNewMessageType
+    | AddNewMessageType
+    | UnFollowUserType
+    | FollowUserType
+    | SetUsersType
 
 
 // export const store: StoreType = {
