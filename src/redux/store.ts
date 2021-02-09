@@ -27,15 +27,15 @@ type MessageType = {
 }
 
 export type UserType = {
+    name: string
     id: number
-    followed: boolean
-    fullName: string
-    status: string
-    location: {
-        city: string
-        country: string
+    uniqueUrlName: string|null
+    photos: {
+        small: string|null
+        large: string|null
     }
-    photo: string
+    status:string|null
+    followed: boolean
 }
 
 export type ProfilePageType = {

@@ -1,40 +1,51 @@
 import {ActionTypes, UsersPageType, UserType} from "./store";
-import messagesReducer from "./messages-reducer";
 
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET_USERS"
 
 let initialState = {
-    users: [
-        {
-            id: 1,
-            photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Dmitry_Nagiev_2017_4.jpg/274px-Dmitry_Nagiev_2017_4.jpg',
-            followed: true,
-            fullName: "Roman",
-            status: "I am a programmer",
-            location: {city: "Kiev", country: "Ukraine"}
-        },
-        {
-            id: 2,
-            photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Dmitry_Nagiev_2017_4.jpg/274px-Dmitry_Nagiev_2017_4.jpg',
-            followed: false,
-            fullName: "Sasha",
-            status: "I am a policeman",
-            location: {city: "Bahmut", country: "Ukraine"}
-        },
-        {
-            id: 3,
-            photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Dmitry_Nagiev_2017_4.jpg/274px-Dmitry_Nagiev_2017_4.jpg',
-            followed: true,
-            fullName: "Renat",
-            status: "I am a student",
-            location: {city: "Kiev", country: "Ukraine"}
-        }
-    ]
+    users:  []
+    //     [
+    //     {
+    //         id: 1,
+    //         followed: true,
+    //         name: "Roman",
+    //         status: "I am a programmer",
+    //         uniqueUrlName: null,
+    //         photos: {
+    //             small: null,
+    //             large: null
+    //         },
+    //
+    //     },
+    //     {
+    //         id: 2,
+    //         followed: false,
+    //         name: "Sasha",
+    //         status: "I am a policeman",
+    //         uniqueUrlName: null,
+    //         photos: {
+    //             small: null,
+    //             large: null
+    //         }
+    //     },
+    //     {
+    //         id: 3,
+    //         followed: true,
+    //         name: "Renat",
+    //         status: "I am a student",
+    //         uniqueUrlName: null,
+    //         photos: {
+    //             small: null,
+    //             large: null
+    //         }
+    //     }
+    // ]
 }
 
-const usersReducer = (state: UsersPageType = initialState, action: ActionTypes) => {
+const usersReducer = (state: UsersPageType =  initialState, action: ActionTypes) => {
+    debugger;
     switch (action.type) {
         case FOLLOW:
             return {...state, users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u )}
