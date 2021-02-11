@@ -3,7 +3,7 @@ import './App.css';
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, HashRouter, Route} from "react-router-dom";
 import News from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
@@ -21,7 +21,7 @@ type AppType = {
 const App = (props: AppType) => {
     const state = props.state
     return (
-        <BrowserRouter>
+        <HashRouter>
             <div className={"app-wrapper"}>
                 <Header/>
                 <Navbar/>
@@ -39,7 +39,7 @@ const App = (props: AppType) => {
                            render={() => <UsersContainer />}/>
                 </div>
             </div>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 
