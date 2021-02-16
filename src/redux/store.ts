@@ -54,6 +54,7 @@ export type UsersPageType = {
     pageSize: number
     totalUserCount: number
     currentPage: number
+    isFetching: boolean
 }
 
 export type RootStateType = {
@@ -101,6 +102,11 @@ type SetTotalUserCount = {
     totalCount: number
 }
 
+type ToggleIsFetchinig = {
+    type: "TOGGLE_IS_FETCHING"
+    isFetching: boolean
+}
+
 
 export type ActionTypes =
     AddPostActionType
@@ -112,7 +118,7 @@ export type ActionTypes =
     | SetUsersType
     | SetCurrentPageType
     | SetTotalUserCount
-
+    | ToggleIsFetchinig
 
 // export const store: StoreType = {
 //     state: {
