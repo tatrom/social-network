@@ -1,5 +1,6 @@
 import React from "react";
 import s from './Users.module.css'
+
 type UserType = {
     id: number
     name: string

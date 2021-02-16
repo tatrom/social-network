@@ -1,8 +1,13 @@
 .userPhoto {
     width: 100px;
     height: 100px;
+    cursor: pointer;
 }
 
 .selectedPage {
     font-weight: bold;
+}
+
+span {
+    cursor: pointer;
 }
