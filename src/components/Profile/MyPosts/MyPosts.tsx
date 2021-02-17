@@ -4,7 +4,6 @@ import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import './MyPosts.module.css';
 import {ActionTypes, PostType} from "../../../redux/store";
-import {addMessageCreator, changeTextCreator} from "../../../redux/profile-reducer";
 
 type MyPostsType = {
     posts: Array<PostType>
@@ -14,7 +13,6 @@ type MyPostsType = {
 }
 
 function MyPosts(props: MyPostsType) {
-    debugger
     let postsElements = props.posts.map(p => <Post message={p.message} likeCounter={p.likesCount}/>);
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 

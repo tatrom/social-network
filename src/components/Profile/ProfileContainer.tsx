@@ -4,20 +4,33 @@ import {ProfileType} from '../../redux/store'
 import Profile from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
-import {addMessage, changeText, setUserProfile} from "../../redux/profile-reducer";
+import {setUserProfile} from "../../redux/profile-reducer";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 
-export type ProfilePropsType = {
+type MapStatePropsType = {
     profile: ProfileType | null
-    addMessage: (message: string) => void
-    changeText: (text: string) => void
+}
+
+type MapDispatchPropsType = {
     setUserProfile: (profile: string) => void
 }
 
+export type ProfilePropsType = MapDispatchPropsType & MapStatePropsType
 
-class ProfileContainer extends React.Component<ProfilePropsType> {
+type PathParamsType = {
+    userId: string
+}
+type PropsType = RouteComponentProps<PathParamsType> & ProfilePropsType
+
+class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`).then(response => {
+        let userId = this.props.match.params.userId
+        if (!userId) {
+            userId = '2'
+        }
+
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then(response => {
             this.props.setUserProfile(response.data)
         })
     }
@@ -29,19 +42,14 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
     }
 }
 
-let mapStateToProps = (state: RootStateType) => {
+let mapStateToProps = (state: RootStateType): MapStatePropsType => {
     return {
-        // posts: state.profilePage.posts,
-        // newText: state.profilePage.newText,
-        // profile: state.profilePage.profile
         profile: state.profilePage.profile
     }
 }
+let withUrlDataContainerComponent = withRouter(ProfileContainer)
 
 export default connect(mapStateToProps, {
-    ProfileContainer,
-    addMessage,
-    changeText,
     setUserProfile
-})(ProfileContainer)
+})(withUrlDataContainerComponent)
 

@@ -6,35 +6,8 @@ import {addMessage, changeText} from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 
-// function MyPostsContainer() {
-//
-//
-//     return (
-//         <StoreContext.Consumer>{
-//             (store: StoreType) => {
-//                 let state = store.getState();
-//                 let addPost = (text: string) => {
-//                     if (text) {
-//                         store.dispatch(addMessageCreator(text))
-//                     }
-//                 }
-//
-//                 let onChangeText = (newValue: string) => {
-//                     if (newValue !== undefined) {
-//                         store.dispatch(changeTextCreator(newValue))
-//                     }
-//                 }
-//                 return <MyPosts posts={state.profilePage.posts} value={state.profilePage.newText}
-//                                 updateNewPostText={onChangeText}
-//                                 addPost={addPost}/>
-//             }
-//         }</StoreContext.Consumer>
-//     )
-//
-// }
 
 let MapStateToStore = (state: RootStateType) => {
-    debugger
     return {
         posts: state.profilePage.posts,
         value: state.profilePage.newText
