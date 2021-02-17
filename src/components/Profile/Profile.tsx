@@ -1,19 +1,13 @@
 import React from "react";
-import s from './Profile.module.css';
-import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {ActionTypes, ProfilePageType} from "../../redux/store";
 import {MySuperPostContainer} from "./MyPosts/MyPostsContainer";
+import {ProfilePropsType} from "./ProfileContainer";
 
-// type ProfileType = {
-//     state: ProfilePageType
-//     dispatch: (action: ActionTypes) => void
-// }
 
-function Profile() {
+function Profile(props: ProfilePropsType) {
     return (
         <div>
-            <ProfileInfo/>
+            <ProfileInfo profile={props.profile}/>
             <MySuperPostContainer />
         </div>
     )

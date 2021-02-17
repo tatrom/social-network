@@ -27,6 +27,7 @@ export type UsersType = {
     setCurrentPage: (currentPage: number) => void
     setUsersTotalCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
+
 }
 
 export class UsersContainer extends React.Component<UsersType> {

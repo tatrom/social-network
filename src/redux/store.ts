@@ -38,9 +38,25 @@ export type UserType = {
     followed: boolean
 }
 
+export type ProfileType = {
+    aboutMe: string
+    contacts: {
+        [key: string]: string
+    }
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: {
+        small: string
+        large: string
+    }
+}
+
 export type ProfilePageType = {
     posts: Array<PostType>
     newText: string
+    profile: ProfileType | null
 }
 
 export type MessagesPageType = {
@@ -107,6 +123,11 @@ type ToggleIsFetchinig = {
     isFetching: boolean
 }
 
+type SetUserProfileType = {
+    type: "SET_USER_PROFILE"
+    profile: string
+}
+
 
 export type ActionTypes =
     AddPostActionType
@@ -119,6 +140,7 @@ export type ActionTypes =
     | SetCurrentPageType
     | SetTotalUserCount
     | ToggleIsFetchinig
+    | SetUserProfileType
 
 // export const store: StoreType = {
 //     state: {
