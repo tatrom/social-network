@@ -98,7 +98,7 @@ export type UserDataType = {
     userId: null | string
     email: null | string
     login: null | string
-    isAuth?: boolean
+    isAuth: boolean
 }
 type FollowUserType = {
     type: "FOLLOW"

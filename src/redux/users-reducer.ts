@@ -18,10 +18,9 @@ let initialState = {
 const usersReducer = (state: UsersPageType = initialState, action: ActionTypes) => {
     switch (action.type) {
         case FOLLOW:
-            return {...state, users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)}
-        case UNFOLLOW:
-            debugger
             return {...state, users: state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)}
+        case UNFOLLOW:
+            return {...state, users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)}
         case SET_USERS:
             return {...state, users: [...action.users]}
         case SET_CURRENT_PAGE:
@@ -29,7 +28,7 @@ const usersReducer = (state: UsersPageType = initialState, action: ActionTypes) 
         case SET_TOTAL_USER_COUNT:
             return {...state, totalUserCount: action.totalCount}
         case TOGGLE_IS_FETCHING:
-            return {...state, isFetching: action.isFetching }
+            return {...state, isFetching: action.isFetching}
     }
     return state
 }

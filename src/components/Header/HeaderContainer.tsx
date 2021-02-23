@@ -8,9 +8,9 @@ import {setAuthUserData} from "../../redux/auth-reducer";
 import {AppRootStateType} from "../../redux/redux-store";
 
 export type HeaderPropsType = {
-    isAuth?: boolean
+    isAuth: boolean
     login: string | null
-    setAuthUserData: (userId: string, email: string, login: string) => void
+    setAuthUserData: (userId: string, email: string, login: string, isAuth: boolean) => void
 }
 
 
@@ -22,7 +22,7 @@ class HeaderContainer extends React.Component<HeaderPropsType> {
             .then(response => {
                 if (response.data.resultCode === 0) {
                     let {id, login, email} = response.data.data
-                    this.props.setAuthUserData(id, email, login)
+                    this.props.setAuthUserData(id, email, login, true)
                 }
             })
     }

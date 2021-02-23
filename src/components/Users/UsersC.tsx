@@ -2,7 +2,9 @@ import React from "react";
 import userPhoto from "../../assets/pngtree-user-vector-avatar-png-image_1541962.jpeg";
 import s from "./Users.module.css";
 import {UserType} from "../../redux/store";
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
+import axios from "axios";
+import {usersApi} from "../../api/api";
 
 export type UsersPropsType = {
     totalUserCount: number
@@ -36,15 +38,25 @@ export function Users(props: UsersPropsType) {
                     <span>
                     <div>
                         <NavLink to={`/profile/${u.id}`}>
-                    <img src={u.photos.small !== null ? u.photos.small : userPhoto} className={s.userPhoto} alt={'img'}/>
+                    <img src={u.photos.small !== null ? u.photos.small : userPhoto} className={s.userPhoto}
+                         alt={'img'}/>
                     </NavLink>
                     </div>
                     <div>
                 {u.followed ? <button onClick={() => {
-                    props.follow(u.id)
-                }}>Follow</button> : <button onClick={() => {
-                    props.unfollow(u.id)
-                }}>Unfollow</button>}
+                        usersApi.unfollowUser(u.id).then(data => {
+                            if (data.resultCode === 0) {
+                                props.unfollow(u.id);
+                            }
+                        })
+                    }}>Unfollow</button>
+                    : <button onClick={() => {
+                        usersApi.followUser(u.id).then(data => {
+                            if (data.resultCode === 0) {
+                                props.follow(u.id);
+                            }
+                        })
+                    }}>Follow</button>}
 
                     </div>
                     </span>
@@ -57,4 +69,6 @@ export function Users(props: UsersPropsType) {
         }
 
     </div>
+
 }
+
