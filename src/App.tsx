@@ -10,6 +10,7 @@ import {ActionTypes, RootStateType} from "./redux/store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 type AppType = {
     state: RootStateType
@@ -22,7 +23,7 @@ const App = (props: AppType) => {
     return (
         <HashRouter>
             <div className={"app-wrapper"}>
-                <Header/>
+                <HeaderContainer/>
                 <Navbar/>
                 <div className={"app-wrapper-content"}>
                     <Route path='/dialogs'

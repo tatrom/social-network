@@ -9,7 +9,7 @@ const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING"
 
 let initialState = {
     users: [],
-    pageSize: 5,
+    pageSize: 10,
     totalUserCount: 0,
     currentPage: 1,
     isFetching: false
@@ -29,7 +29,6 @@ const usersReducer = (state: UsersPageType = initialState, action: ActionTypes) 
         case SET_TOTAL_USER_COUNT:
             return {...state, totalUserCount: action.totalCount}
         case TOGGLE_IS_FETCHING:
-            debugger
             return {...state, isFetching: action.isFetching }
     }
     return state

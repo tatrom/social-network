@@ -1,7 +1,6 @@
 import React from "react";
-import s from './Users.module.css'
 import {connect} from "react-redux";
-import {ActionTypes, RootStateType, UserType} from "../../redux/store";
+import { UserType} from "../../redux/store";
 import {
     follow,
     setCurrentPage,
@@ -12,8 +11,8 @@ import {
 } from "../../redux/users-reducer";
 import axios from "axios";
 import {Users} from "./UsersC";
-import {CircularProgress} from "@material-ui/core";
 import {Preloader} from "../common/Preloader";
+import {AppRootStateType} from "../../redux/redux-store";
 
 export type UsersType = {
     users: Array<UserType>
@@ -64,7 +63,7 @@ export class UsersContainer extends React.Component<UsersType> {
     }
 }
 
-let mapStateToProps = (state: RootStateType) => {
+let mapStateToProps = (state: AppRootStateType) => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,

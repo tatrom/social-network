@@ -25,8 +25,8 @@ export function Users(props: UsersPropsType) {
     }
     return <div>
         <div>
-            {pages.map(p => {
-                return <span className={props.currentPage === p ? s.selectedPage : ""}
+            {pages.map((p, id) => {
+                return <span key={id} className={props.currentPage === p ? s.selectedPage : ""}
                              onClick={(e) => props.onPageChanged(p)
                              }>{p}/</span>
             })}
@@ -36,7 +36,7 @@ export function Users(props: UsersPropsType) {
                     <span>
                     <div>
                         <NavLink to={`/profile/${u.id}`}>
-                    <img src={u.photos.small !== null ? u.photos.small : userPhoto} className={s.userPhoto}/>
+                    <img src={u.photos.small !== null ? u.photos.small : userPhoto} className={s.userPhoto} alt={'img'}/>
                     </NavLink>
                     </div>
                     <div>

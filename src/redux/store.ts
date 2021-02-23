@@ -94,6 +94,12 @@ type AddNewMessageType = {
     type: "ADD_NEW_MESSAGE"
 }
 
+export type UserDataType = {
+    userId: null | string
+    email: null | string
+    login: null | string
+    isAuth?: boolean
+}
 type FollowUserType = {
     type: "FOLLOW"
     userId: number
@@ -128,6 +134,11 @@ type SetUserProfileType = {
     profile: string
 }
 
+export type SetUserData = {
+    type: "SET_USER_DATA"
+    data: UserDataType
+}
+
 
 export type ActionTypes =
     AddPostActionType
@@ -141,6 +152,7 @@ export type ActionTypes =
     | SetTotalUserCount
     | ToggleIsFetchinig
     | SetUserProfileType
+    | SetUserData
 
 // export const store: StoreType = {
 //     state: {
