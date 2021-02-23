@@ -71,6 +71,7 @@ export type UsersPageType = {
     totalUserCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: Array<number>
 }
 
 export type RootStateType = {
@@ -139,6 +140,12 @@ export type SetUserData = {
     data: UserDataType
 }
 
+export type SetFollowingProgress = {
+    type: "TOGGLE_IS_FOLLOWING_PROGRESS",
+    isFetching: boolean
+    id: number
+}
+
 
 export type ActionTypes =
     AddPostActionType
@@ -153,54 +160,4 @@ export type ActionTypes =
     | ToggleIsFetchinig
     | SetUserProfileType
     | SetUserData
-
-// export const store: StoreType = {
-//     state: {
-//         profilePage: {
-//             posts: [
-//                 {id: 1, message: 'Hi, how are you?', likesCount: 12},
-//                 {id: 2, message: 'It s my first post!', likesCount: 11}
-//             ],
-//             newText: ''
-//         },
-//         messagesPage: {
-//             dialogs: [
-//                 {id: 1, name: 'Dimych'},
-//                 {id: 2, name: 'Andrew'},
-//                 {id: 3, name: 'Sveta'},
-//                 {id: 4, name: 'Sasha'},
-//                 {id: 5, name: 'Viktor'},
-//                 {id: 6, name: 'Valera'}
-//             ],
-//             messages: [{id: 1, message: 'Hi'},
-//                 {id: 2, message: 'How is your it kamasutra?'},
-//                 {id: 3, message: 'Yo'},
-//                 {id: 4, message: 'Yo'},
-//                 {id: 5, message: 'Yo'}],
-//             newMessage: ''
-//         },
-//         usersPage: {
-//             users: [
-//                 {id: 1, name: "Evgen", date: 1999},
-//                 {id: 2, name: "Evgen", date: 2008},
-//                 {id: 3, name: "Evgen", date: 1012},
-//                 {id: 4, name: "Evgen", date: 2010}
-//             ]
-//         }
-//     },
-//     _rerenderEntireTree() {
-//     },
-//     subscribe(callback: () => void) {
-//         this._rerenderEntireTree = callback
-//     },
-//     getState() {
-//         return this.state
-//     },
-//     dispatch(action) {
-//         this.state.profilePage = profileReducer(this.state.profilePage, action);
-//         this.state.messagesPage = messagesReducer(this.state.messagesPage, action);
-//         this.state.usersPage = usersReducer(this.state.usersPage, action);
-//         this._rerenderEntireTree()
-//     }
-// }
-
+    | SetFollowingProgress

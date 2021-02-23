@@ -3,7 +3,6 @@ import userPhoto from "../../assets/pngtree-user-vector-avatar-png-image_1541962
 import s from "./Users.module.css";
 import {UserType} from "../../redux/store";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
 import {usersApi} from "../../api/api";
 
 export type UsersPropsType = {
@@ -14,6 +13,9 @@ export type UsersPropsType = {
     users: Array<UserType>
     follow: (userId: number) => void
     unfollow: (userId: number) => void
+    toggleFollowingProgress: (isFetching: boolean, id: number) => void
+    followingInProgress: Array<number>
+
 }
 
 export function Users(props: UsersPropsType) {
@@ -43,18 +45,24 @@ export function Users(props: UsersPropsType) {
                     </NavLink>
                     </div>
                     <div>
-                {u.followed ? <button onClick={() => {
+                {u.followed ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                        props.toggleFollowingProgress(true, u.id)
                         usersApi.unfollowUser(u.id).then(data => {
                             if (data.resultCode === 0) {
                                 props.unfollow(u.id);
                             }
+                            props.toggleFollowingProgress(false, u.id)
+
                         })
                     }}>Unfollow</button>
-                    : <button onClick={() => {
+                    : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                        props.toggleFollowingProgress(true, u.id)
+
                         usersApi.followUser(u.id).then(data => {
                             if (data.resultCode === 0) {
                                 props.follow(u.id);
                             }
+                            props.toggleFollowingProgress(false, u.id)
                         })
                     }}>Follow</button>}
 
