@@ -1,19 +1,18 @@
 import React from "react";
-// import s from '../Post.module.css';
 import './MyPosts.module.css';
-import {ActionTypes, PostType, ProfilePageType, RootStateType, StoreType} from "../../../redux/store";
-import {addMessage, changeText} from "../../../redux/profile-reducer";
+import {addMessage, changeText, ProfileReducerTypes} from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
+import {AppRootStateType} from "../../../redux/redux-store";
 
 
-let MapStateToStore = (state: RootStateType) => {
+let MapStateToStore = (state: AppRootStateType) => {
     return {
         posts: state.profilePage.posts,
         value: state.profilePage.newText
     }
 }
-let MapDispatchToProps = (dispatch: (action: ActionTypes) => void) => {
+let MapDispatchToProps = (dispatch: (action: ProfileReducerTypes ) => void) => {
     return {
         updateNewPostText: (newValue: string) => {
             if (newValue !== undefined) {

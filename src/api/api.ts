@@ -16,10 +16,17 @@ export const usersApi = {
     },
     followUser(userId: number) {
         return instance.post(`/follow/${userId}`)
-            .then(response => response.data)
     },
     unfollowUser(userId: number) {
         return instance.delete(`/follow/${userId}`)
-            .then(response => response.data)
+    }
+}
+
+export const authApi = {
+    setProfile(userId: string) {
+        return instance.get(`/profile/${userId}`)
+    },
+    me() {
+        return instance.get('/auth/me')
     }
 }

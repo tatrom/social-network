@@ -1,4 +1,38 @@
-import {ActionTypes, PostType, ProfilePageType} from "./store";
+// import { PostType, ProfilePageType, ProfileType, UserDataType} from "./store";
+
+export type ProfilePageType = {
+    posts: Array<PostType>
+    newText: string
+    profile: ProfileType | null
+}
+
+export type PostType = {
+    id: number
+    message: string
+    likesCount: number
+}
+
+export type ProfileType = {
+    aboutMe: string
+    contacts: {
+        [key: string]: string
+    }
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: {
+        small: string
+        large: string
+    }
+}
+
+export type UserDataType = {
+    userId: null | string
+    email: null | string
+    login: null | string
+    isAuth: boolean
+}
 
 
 const ADD_POST = "ADD-POST"
@@ -7,14 +41,18 @@ const SET_USER_PROFILE = "SET_USER_PROFILE"
 
 let initialState = {
     posts: [
-        {id: 1, message: 'Hi, how are you?', likesCount: 12},
-        {id: 2, message: 'It s my first post!', likesCount: 11}
+        {id: 1, message: "Its a first post", likesCount: 3},
+        {id: 2, message: "Its a second post", likesCount: 3},
+        {id: 3, message: "Its a third post", likesCount: 3},
+        {id: 4, message: "Its a fourth post", likesCount: 3},
+        {id: 5, message: "Its a fifth post", likesCount: 3},
     ],
-    newText: '',
+    newText: "",
     profile: null
 }
 
-export const profileReducer = (state: ProfilePageType = initialState, action: ActionTypes) => {
+
+const profileReducer = (state: ProfilePageType = initialState, action: ProfileReducerTypes): ProfilePageType => {
     switch (action.type) {
         case "ADD-POST":
             let textOfPost = action.postMessage.trim()
@@ -33,12 +71,31 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
         case "SET_USER_PROFILE":
             return {...state, profile: action.profile}
         default:
-            return state
+            return {...state}
     }
 }
 
-export const addMessage = (text: string): ActionTypes => ({type: ADD_POST, postMessage: text})
-export const changeText = (text: string): ActionTypes => ({type: CHANGE_TEXT, text: text})
-export const setUserProfile = (profile: string): ActionTypes => ({type: SET_USER_PROFILE, profile})
+export type ProfileReducerTypes = SetUserProfileType | SetUserData | ChangeTextActionType | AddPostActionType
+
+export type SetUserProfileType = {
+    type: "SET_USER_PROFILE"
+    profile: ProfileType
+}
+export type SetUserData = {
+    type: "SET_USER_DATA"
+    data: UserDataType
+}
+export type ChangeTextActionType = {
+    type: "CHANGE-TEXT"
+    text: string
+}
+export type AddPostActionType = {
+    type: "ADD-POST"
+    postMessage: string
+}
+
+export const addMessage = (text: string): AddPostActionType => ({type: ADD_POST, postMessage: text})
+export const changeText = (text: string): ChangeTextActionType => ({type: CHANGE_TEXT, text: text})
+export const setUserProfile = (profile: ProfileType): SetUserProfileType => ({type: SET_USER_PROFILE, profile})
 
 export default profileReducer;

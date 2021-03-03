@@ -1,5 +1,26 @@
-import {ActionTypes, MessagesPageType, PostType} from "./store";
-import usersReducer from "./users-reducer";
+export type MessagesPageType = {
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
+    newMessage: string
+}
+
+type DialogType = {
+    id: number
+    name: string
+}
+
+type MessageType = {
+    id: number
+    message: string
+}
+
+
+export type PostType = {
+    id: number
+    message: string
+    likesCount: number
+}
+
 
 const CHANGE_NEW_MESSAGE = "CHANGE-NEW-MESSAGE"
 const ADD_NEW_MESSAGE = "ADD_NEW_MESSAGE"
@@ -21,16 +42,16 @@ let initialState = {
         {id: 5, message: 'Yo'}],
     newMessage: ''
 }
-const messagesReducer = (state: MessagesPageType = initialState, action: ActionTypes) => {
+const messagesReducer = (state: MessagesPageType = initialState, action: MessagesReducerType): MessagesPageType => {
     switch (action.type) {
         case CHANGE_NEW_MESSAGE:
             debugger
-            return {...state, newMessage: action.message }
+            return {...state, newMessage: action.message}
 
         case ADD_NEW_MESSAGE: {
             let message = state.newMessage.trim()
             debugger
-             return {...state, messages: [...state.messages, {id: 6, message: message}], newMessage: ""}
+            return {...state, messages: [...state.messages, {id: 6, message: message}], newMessage: ""}
         }
         default:
             return state
@@ -38,6 +59,20 @@ const messagesReducer = (state: MessagesPageType = initialState, action: ActionT
 
 
 }
-export const changeNewMessageCreator = (text: string): ActionTypes => ({type: CHANGE_NEW_MESSAGE, message: text})
-export const addNewMessageCreator = (): ActionTypes => ({type: ADD_NEW_MESSAGE})
+
+export type MessagesReducerType = ChangeNewMessageType | AddNewMessageType
+type ChangeNewMessageType = {
+    type: "CHANGE-NEW-MESSAGE"
+    message: string
+}
+
+type AddNewMessageType = {
+    type: "ADD_NEW_MESSAGE"
+}
+
+export const changeNewMessageCreator = (text: string): ChangeNewMessageType => ({
+    type: CHANGE_NEW_MESSAGE,
+    message: text
+})
+export const addNewMessageCreator = (): AddNewMessageType => ({type: ADD_NEW_MESSAGE})
 export default messagesReducer;

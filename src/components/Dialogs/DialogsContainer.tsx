@@ -1,36 +1,18 @@
-import React, {ChangeEvent, KeyboardEvent} from 'react';
-import s from './Dialogs.module.css'
-import DialogItem from "./DialogItem/DialogItem";
-import Message from './Message/Message';
-import {ActionTypes, MessagesPageType, RootStateType, StoreType} from '../../redux/store';
-import {addNewMessageCreator, changeNewMessageCreator} from '../../redux/messages-reducer';
+import React from 'react';
+
+import {addNewMessageCreator, changeNewMessageCreator, MessagesReducerType} from '../../redux/messages-reducer';
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
+import {AppRootStateType} from "../../redux/redux-store";
 
 
-// const DialogsContainer = () => {
-//
-//     return <StoreContext.Consumer>{ (store) => {
-//             let state = store.getState()
-//             const OnChangeHandler = (text: string) => {
-//                 store.dispatch(changeNewMessageCreator(text))
-//             }
-//             const addMessage = () => {
-//                 store.dispatch(addNewMessageCreator())
-//             }
-//
-//             return <Dialogs state={state.messagesPage} addMessage={addMessage} updateNewMessage={OnChangeHandler}/>
-//         }
-//     }
-//     </StoreContext.Consumer>
-// }
-
-let mapStateToProps = (state:RootStateType) => {
+let mapStateToProps = (state: AppRootStateType) => {
     return {
-       state: state.messagesPage
+        state: state.messagesPage,
+        isAuth: state.auth.isAuth
     }
 }
-let mapDispatchToProps = (dispatch: (action: ActionTypes) => void) => {
+let mapDispatchToProps = (dispatch: (action: MessagesReducerType) => void) => {
     return {
         addMessage: () => {
             dispatch(addNewMessageCreator())
@@ -41,4 +23,4 @@ let mapDispatchToProps = (dispatch: (action: ActionTypes) => void) => {
     }
 }
 
-export const DialogsContainer = connect(mapStateToProps,mapDispatchToProps)(Dialogs)
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)

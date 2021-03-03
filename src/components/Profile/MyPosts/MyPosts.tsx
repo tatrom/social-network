@@ -1,9 +1,8 @@
-import React, {ChangeEvent, KeyboardEvent} from "react";
-// import s from '../Post.module.css';
+import React, {KeyboardEvent} from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import './MyPosts.module.css';
-import {ActionTypes, PostType} from "../../../redux/store";
+import {PostType} from "../../../redux/messages-reducer";
 
 type MyPostsType = {
     posts: Array<PostType>
@@ -13,7 +12,7 @@ type MyPostsType = {
 }
 
 function MyPosts(props: MyPostsType) {
-    let postsElements = props.posts.map(p => <Post message={p.message} likeCounter={p.likesCount}/>);
+    let postsElements = props.posts.map((p, id) => <Post key={id} message={p.message} likeCounter={p.likesCount}/>);
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     let onAddPost = () => {

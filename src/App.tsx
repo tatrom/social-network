@@ -6,15 +6,18 @@ import {HashRouter, Route} from "react-router-dom";
 import News from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {ActionTypes, RootStateType} from "./redux/store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import LoginPage from "./components/Login/Login";
+import {AppRootStateType} from "./redux/redux-store";
+import {authReducerType} from "./redux/auth-reducer";
+import {MessagesReducerType} from "./redux/messages-reducer";
 
 type AppType = {
-    state: RootStateType
-    dispatch: (action: ActionTypes) => void
+    state: AppRootStateType
+    dispatch: (action: authReducerType | MessagesReducerType) => void
     subscribe: (callback: () => void) => void
 }
 
@@ -37,10 +40,11 @@ const App = (props: AppType) => {
                            render={() => <Settings/>}/>
                     <Route path={'/users'}
                            render={() => <UsersContainer/>}/>
+                    <Route path={'/login'}
+                           render={() => <LoginPage/>}/>
                 </div>
             </div>
         </HashRouter>
     )
 }
-
 export default App;
