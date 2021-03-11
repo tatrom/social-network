@@ -1,4 +1,5 @@
 import {usersApi} from "../api/api";
+import {Dispatch} from "redux";
 
 export type UsersPageType = {
     users: Array<UserType>
@@ -115,7 +116,7 @@ export const toggleFollowingProgress = (isFetching: boolean, id: number): SetFol
 
 
 export const getUsers = (currentPage: number, pageSize: number) => {
-    return (dispatch: (action: UsersReducerType) => void) => {
+    return (dispatch: Dispatch) => {
         dispatch(toggleIsFetching(true))
 
         usersApi.getUsers(currentPage, pageSize).then(data => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import {connect} from "react-redux";
 import {UserType} from "../../redux/users-reducer";
 import {
@@ -7,6 +7,8 @@ import {
 import {Users} from "./UsersC";
 import {Preloader} from "../common/Preloader";
 import {AppRootStateType} from "../../redux/redux-store";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 export type UsersType = {
     users: Array<UserType>
@@ -26,6 +28,7 @@ export class UsersContainer extends React.Component<UsersType> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
+
     onPageChanged = (pageNumber: number) => {
         this.props.getUsers(pageNumber, this.props.pageSize)
 
@@ -59,8 +62,9 @@ let mapStateToProps = (state: AppRootStateType) => {
 }
 
 
-export default connect(mapStateToProps, {
-    setCurrentPage,
-    getUsers,
-    follow, unfollow
-})(UsersContainer)
+export default compose<ComponentType>(connect(mapStateToProps, {
+        setCurrentPage,
+        getUsers,
+        follow, unfollow
+    }), withAuthRedirect
+)(UsersContainer)

@@ -1,5 +1,6 @@
 import {authApi, usersApi} from "../api/api";
 import {ProfileReducerTypes, setUserProfile} from "./profile-reducer";
+import axios from "axios";
 
 const SET_USER_DATA = 'SET_USER_DATA';
 
