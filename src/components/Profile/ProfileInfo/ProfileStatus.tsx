@@ -30,11 +30,19 @@ export class ProfileStatus extends Component<ProfileStatusType> {
         this.setState({status: e.currentTarget.value})
     }
 
+
+
+    componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState: Readonly<{}>) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({status: this.props.status})
+        }
+    }
+
     render() {
         return (
             <>
                 {!this.state.editMode &&
-                <span onDoubleClick={this.activateEditMode}>{this.props.status || "-------" }</span>
+                <span onDoubleClick={this.activateEditMode}>{this.props.status || "-------"}</span>
                 }
                 {this.state.editMode &&
                 <input autoFocus={true} onBlur={this.deactivateEditMode} value={this.state.status} type="text"
