@@ -1,5 +1,5 @@
 import React, {ComponentType} from 'react';
-import {addNewMessageCreator, changeNewMessageCreator, MessagesReducerType} from '../../redux/messages-reducer';
+import {addNewMessageCreator,  MessagesReducerType} from '../../redux/messages-reducer';
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
@@ -15,14 +15,11 @@ let mapStateToProps = (state: AppRootStateType) => {
 }
 let mapDispatchToProps = (dispatch: (action: MessagesReducerType) => void) => {
     return {
-        addMessage: () => {
-            dispatch(addNewMessageCreator())
-        },
-        updateNewMessage: (text: string) => {
-            dispatch(changeNewMessageCreator(text))
+        addMessage: (message: string) => {
+            dispatch(addNewMessageCreator(message))
         }
     }
 }
 
 
-export default compose<ComponentType>(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(Dialogs)
+export default compose<any>(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(Dialogs)

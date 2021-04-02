@@ -1,5 +1,4 @@
 import React, {ChangeEvent, Component} from "react";
-import {ProfileType} from "../../../redux/profile-reducer";
 
 type ProfileStatusType = {
     status: string,
@@ -29,8 +28,6 @@ export class ProfileStatus extends Component<ProfileStatusType> {
     onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({status: e.currentTarget.value})
     }
-
-
 
     componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState: Readonly<{}>) {
         if (prevProps.status !== this.props.status) {

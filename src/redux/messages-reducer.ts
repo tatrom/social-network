@@ -1,7 +1,6 @@
 export type MessagesPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
-    newMessage: string
 }
 
 type DialogType = {
@@ -22,7 +21,6 @@ export type PostType = {
 }
 
 
-const CHANGE_NEW_MESSAGE = "CHANGE-NEW-MESSAGE"
 const ADD_NEW_MESSAGE = "ADD_NEW_MESSAGE"
 
 
@@ -40,18 +38,12 @@ let initialState = {
         {id: 3, message: 'Yo'},
         {id: 4, message: 'Yo'},
         {id: 5, message: 'Yo'}],
-    newMessage: ''
 }
 const messagesReducer = (state: MessagesPageType = initialState, action: MessagesReducerType): MessagesPageType => {
     switch (action.type) {
-        case CHANGE_NEW_MESSAGE:
-            debugger
-            return {...state, newMessage: action.message}
-
         case ADD_NEW_MESSAGE: {
-            let message = state.newMessage.trim()
-            debugger
-            return {...state, messages: [...state.messages, {id: 6, message: message}], newMessage: ""}
+            let message = action.message
+            return {...state, messages: [...state.messages, {id: 6, message: message}]}
         }
         default:
             return state
@@ -60,19 +52,14 @@ const messagesReducer = (state: MessagesPageType = initialState, action: Message
 
 }
 
-export type MessagesReducerType = ChangeNewMessageType | AddNewMessageType
-type ChangeNewMessageType = {
-    type: "CHANGE-NEW-MESSAGE"
-    message: string
-}
+export type MessagesReducerType = AddNewMessageType
+
 
 type AddNewMessageType = {
     type: "ADD_NEW_MESSAGE"
+    message: string
 }
 
-export const changeNewMessageCreator = (text: string): ChangeNewMessageType => ({
-    type: CHANGE_NEW_MESSAGE,
-    message: text
-})
-export const addNewMessageCreator = (): AddNewMessageType => ({type: ADD_NEW_MESSAGE})
+
+export const addNewMessageCreator = (message: string): AddNewMessageType => ({type: ADD_NEW_MESSAGE, message})
 export default messagesReducer;

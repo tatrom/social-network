@@ -4,6 +4,7 @@ import {addMessage, changeText, ProfileReducerTypes} from "../../../redux/profil
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../../redux/redux-store";
+import {Dispatch} from "redux";
 
 
 let MapStateToStore = (state: AppRootStateType) => {
@@ -12,13 +13,8 @@ let MapStateToStore = (state: AppRootStateType) => {
         value: state.profilePage.newText
     }
 }
-let MapDispatchToProps = (dispatch: (action: ProfileReducerTypes ) => void) => {
+let MapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        updateNewPostText: (newValue: string) => {
-            if (newValue !== undefined) {
-                dispatch(changeText(newValue))
-            }
-        },
         addPost: (text: string) => {
             if (text) {
                 dispatch(addMessage(text))

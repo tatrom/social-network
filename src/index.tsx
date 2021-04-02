@@ -1,18 +1,19 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import ReactDOM from "react-dom";
 import React from "react";
 import store from "./redux/redux-store";
 import {Provider} from "react-redux";
+import {HashRouter} from "react-router-dom";
 
-    ReactDOM.render(
-        <React.StrictMode>
+ReactDOM.render(
+    <React.StrictMode>
+        <HashRouter>
             <Provider store={store}>
-            <App dispatch={store.dispatch} state={store.getState()} subscribe={store.subscribe}/>
+                <App />
             </Provider>
-        </React.StrictMode>,
-        document.getElementById('root')
-    );
+        </HashRouter>
+    </React.StrictMode>,
+    document.getElementById('root')
+);
 

@@ -1,5 +1,3 @@
-// import { PostType, ProfilePageType, ProfileType, UserDataType} from "./store";
-
 import {profileApi} from "../api/api";
 import {Dispatch} from "redux";
 
