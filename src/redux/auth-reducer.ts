@@ -38,41 +38,35 @@ export const setAuthUserData = (userId: string | null, email: string | null, log
     data: {userId, email, login, isAuth}
 } as const)
 
-
+// thunks
 export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
     authApi.setProfile(userId).then(response => {
         dispatch(setUserProfile(response.data))
     })
 }
 
-
-export const getAuthUserData = () => (dispatch: Dispatch<ActionType>) => {
-   return authApi.me().then(response => {
-        if (response.data.resultCode === 0) {
-            let {id, login, email} = response.data.data
-            dispatch(setAuthUserData(id, email, login, true))
-        }
-    })
+export const getAuthUserData = () => async (dispatch: Dispatch<ActionType>) => {
+    let response = await authApi.me()
+    if (response.data.resultCode === 0) {
+        let {id, login, email} = response.data.data
+        dispatch(setAuthUserData(id, email, login, true))
+    }
 }
-export const login = (email: string, password: string, rememberMe: boolean): ThunkAction<void, ActionType, unknown, any> => (dispatch) => {
-    authApi.login(email, password, rememberMe)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(getAuthUserData())
-            } else {
-                let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
-                dispatch(stopSubmit("login", {email: message}))
-            }
-        })
+export const login = (email: string, password: string, rememberMe: boolean): ThunkAction<void, ActionType, unknown, any> => async (dispatch) => {
+    const response = await authApi.login(email, password, rememberMe)
+    if (response.data.resultCode === 0) {
+        await dispatch(getAuthUserData())
+    } else {
+        let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
+        dispatch(stopSubmit("login", {email: message}))
+    }
 }
 
-export const logout = (): ThunkAction<void, ActionType, unknown, ActionType> => (dispatch) => {
-    authApi.logout()
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setAuthUserData(null, null, null, false))
-            }
-        })
+export const logout = (): ThunkAction<void, ActionType, unknown, ActionType> => async (dispatch) => {
+    const response = await authApi.logout()
+    if (response.data.resultCode === 0) {
+        dispatch(setAuthUserData(null, null, null, false))
+    }
 }
 
 

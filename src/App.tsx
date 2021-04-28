@@ -1,7 +1,7 @@
 import React, {ComponentType} from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {Route, withRouter} from "react-router-dom";
+import {Redirect, Route, withRouter} from "react-router-dom";
 import News from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
@@ -36,6 +36,7 @@ class App extends React.Component<AppType> {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className={"app-wrapper-content"}>
+                    <Route path={"/"} exact render={() => <Redirect to={'/profile'}/>}/>
                     <Route path='/dialogs'
                            render={() => <DialogsContainer/>}/>
                     <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>

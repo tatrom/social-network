@@ -1,29 +1,4 @@
-export type MessagesPageType = {
-    dialogs: Array<DialogType>
-    messages: Array<MessageType>
-}
-
-type DialogType = {
-    id: number
-    name: string
-}
-
-type MessageType = {
-    id: number
-    message: string
-}
-
-
-export type PostType = {
-    id: number
-    message: string
-    likesCount: number
-}
-
-
-const ADD_NEW_MESSAGE = "ADD_NEW_MESSAGE"
-
-
+//initial state
 let initialState = {
     dialogs: [
         {id: 1, name: 'Dimych'},
@@ -39,9 +14,11 @@ let initialState = {
         {id: 4, message: 'Yo'},
         {id: 5, message: 'Yo'}],
 }
+
+//reducer
 const messagesReducer = (state: MessagesPageType = initialState, action: MessagesReducerType): MessagesPageType => {
     switch (action.type) {
-        case ADD_NEW_MESSAGE: {
+        case "ADD_NEW_MESSAGE": {
             let message = action.message
             return {...state, messages: [...state.messages, {id: 6, message: message}]}
         }
@@ -52,14 +29,31 @@ const messagesReducer = (state: MessagesPageType = initialState, action: Message
 
 }
 
-export type MessagesReducerType = AddNewMessageType
+// types
+export type MessagesPageType = {
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
+}
 
+type DialogType = {
+    id: number
+    name: string
+}
 
-type AddNewMessageType = {
-    type: "ADD_NEW_MESSAGE"
+type MessageType = {
+    id: number
     message: string
 }
 
+export type PostType = {
+    id: number
+    message: string
+    likesCount: number
+}
+type AddNewMessageType = ReturnType<typeof addNewMessageCreator>
+export type MessagesReducerType = AddNewMessageType
 
-export const addNewMessageCreator = (message: string): AddNewMessageType => ({type: ADD_NEW_MESSAGE, message})
+// action creators
+export const addNewMessageCreator = (message: string) => ({type: "ADD_NEW_MESSAGE", message} as const)
+
 export default messagesReducer;

@@ -2,13 +2,21 @@ import React, {ComponentType} from "react";
 import {connect} from "react-redux";
 import {UserType} from "../../redux/users-reducer";
 import {
-    setCurrentPage, getUsers, follow, unfollow
+    setCurrentPage, getUsersAC, follow, unfollow
 } from "../../redux/users-reducer";
 import {Users} from "./UsersC";
 import {Preloader} from "../common/Preloader";
 import {AppRootStateType} from "../../redux/redux-store";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers, getUsersSuperSelector
+} from "../../redux/users-selectors";
 
 export type UsersType = {
     users: Array<UserType>
@@ -52,19 +60,20 @@ export class UsersContainer extends React.Component<UsersType> {
 
 let mapStateToProps = (state: AppRootStateType) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUserCount: state.usersPage.totalUserCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUserCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state),
+        superUsers: getUsersSuperSelector(state)
     }
 }
 
 
 export default compose<ComponentType>(connect(mapStateToProps, {
         setCurrentPage,
-        getUsers,
+        getUsers: getUsersAC,
         follow, unfollow
     }), withAuthRedirect
 )(UsersContainer)

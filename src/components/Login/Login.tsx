@@ -1,6 +1,6 @@
 import React from 'react'
-import {reduxForm, InjectedFormProps, Field, stopSubmit} from "redux-form";
-import {maxLengthCreator, requiredField} from "../../Utils/Validators/validators";
+import {reduxForm, InjectedFormProps, Field} from "redux-form";
+import { requiredField} from "../../Utils/Validators/validators";
 import {Input} from "../common/FormsControls/FormsControls";
 import {connect, useDispatch} from "react-redux";
 import {login} from "../../redux/auth-reducer";

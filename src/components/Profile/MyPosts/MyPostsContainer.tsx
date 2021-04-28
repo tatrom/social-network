@@ -1,6 +1,6 @@
 import React from "react";
 import './MyPosts.module.css';
-import {addMessage, changeText, ProfileReducerTypes} from "../../../redux/profile-reducer";
+import {addPost, changeText, ProfileReducerTypes} from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../../redux/redux-store";
@@ -17,7 +17,7 @@ let MapDispatchToProps = (dispatch: Dispatch) => {
     return {
         addPost: (text: string) => {
             if (text) {
-                dispatch(addMessage(text))
+                dispatch(addPost(text))
             }
         }
     }
