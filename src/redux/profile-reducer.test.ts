@@ -3,7 +3,7 @@ import profileReducer, {addPost, deletePost} from "./profile-reducer";
 
 it('new post should be added', () => {
     // 1.Test data
-    let action = addPost('it-kamasutra.com')
+    let action = addPost('it-incubator.com')
     let state = {
         posts: [
             {id: 1, message: "Its a first post", likesCount: 3},
@@ -19,7 +19,7 @@ it('new post should be added', () => {
     let newState = profileReducer(state, action)
     //expectation
     expect(newState.posts.length).toBe(6);
-    expect(newState.posts[5].message).toBe('it-kamasutra.com');
+    expect(newState.posts[5].message).toBe('it-incubator.com');
 })
 
 it('Correct message should be added', () => {
@@ -62,3 +62,4 @@ it('After deleting message length on message array should be decrement', () => {
     //expectation
     expect(newState.posts.length).toBe(5)
 })
+

@@ -57,8 +57,10 @@ class App extends React.Component<AppType> {
     }
 }
 
-const mapStateToProps = (state: AppRootStateType) => ({
-    initialized: state.app.initialized
-})
-export default compose<ComponentType>(withRouter,
-    connect(mapStateToProps, {InitializeApp}))(App);
+// const mapStateToProps = (state: AppRootStateType) => ({
+//     initialized: state.app.initialized
+// })
+// export default compose<ComponentType>(withRouter,
+//     connect(mapStateToProps, {InitializeApp}))(App);
+
+export default App;

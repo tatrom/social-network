@@ -60,7 +60,6 @@ let mapStateToProps = (state: AppRootStateType) => {
 
     }
 }
-let withUrlDataContainerComponent = withRouter(ProfileContainer)
 
 
 export default compose<ComponentType>(connect(mapStateToProps, {
