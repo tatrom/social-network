@@ -16,9 +16,9 @@ export const AppContainer = compose<ComponentType>(withRouter,
 
 
 export const SamuraiJSApp = () => {
-    return <BrowserRouter basename={process.env.PUBLIC_URL}>
+    return <HashRouter>
         <Provider store={store}>
-            <AppContainer/>
+            <HashRouter/>
         </Provider>
     </BrowserRouter>
 }
