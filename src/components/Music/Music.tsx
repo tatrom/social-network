@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Music = () => {
+const Music = () => {
     return <div>
         <li>Hot playlist</li>
         <li>Top charts</li>
@@ -9,3 +9,5 @@ export const Music = () => {
         <li>For study</li>
     </div>
 }
+
+export default Music;
