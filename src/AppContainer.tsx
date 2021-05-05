@@ -20,5 +20,5 @@ export const SamuraiJSApp = () => {
         <Provider store={store}>
             <HashRouter/>
         </Provider>
-    </BrowserRouter>
+    </HashRouter>
 }
