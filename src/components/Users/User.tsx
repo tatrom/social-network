@@ -13,7 +13,7 @@ type PropsType = {
 
 export const User: React.FC<PropsType> = ({user, followingInProgress, follow, unfollow}) => {
     return (
-        <div>
+        <div key={user.id}>
                     <span>
                     <div>
                         <NavLink to={`/profile/${user.id}`}>

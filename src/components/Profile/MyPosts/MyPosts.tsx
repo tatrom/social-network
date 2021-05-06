@@ -19,7 +19,6 @@ type FormDataType = {
 const maxLength100 = maxLengthCreator(100)
 
 const MyPosts = React.memo((props: MyPostsType) => {
-    console.log('render yo')
     let postsElements = props.posts.map((p, id) => <Post key={id} message={p.message}
                                                          likeCounter={p.likesCount}/>);
     // let newPostElement = React.createRef<HTMLTextAreaElement>();

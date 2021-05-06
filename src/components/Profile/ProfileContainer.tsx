@@ -1,4 +1,4 @@
-import {getStatus, ProfileType, updateStatus} from '../../redux/profile-reducer'
+import {getStatus, ProfileType, savePhoto, setStatus, updateStatus} from '../../redux/profile-reducer'
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {setUserProfile} from "../../redux/profile-reducer";
@@ -18,7 +18,9 @@ type MapDispatchPropsType = {
     setUserProfile: (profile: ProfileType) => void
     getUserProfile: (userId: string) => void
     getStatus: (userId: string) => void
+    setStatus: (status: string) => void
     updateStatus: (status: string) => void
+    savePhoto: (file: File) => void
 }
 
 export type ProfilePropsType = MapDispatchPropsType & MapStatePropsType
@@ -29,7 +31,7 @@ type PathParamsType = {
 type PropsType = RouteComponentProps<PathParamsType> & ProfilePropsType
 
 class ProfileContainer extends React.Component<PropsType> {
-    componentDidMount() {
+    refreshProfile() {
         let userId = this.props.match.params.userId
         if (!userId) {
             userId = this.props.authorizedUserId
@@ -41,9 +43,25 @@ class ProfileContainer extends React.Component<PropsType> {
         this.props.getStatus(userId)
     }
 
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (this.props.match.params.userId != prevProps.match.params.userId) {
+            debugger;
+            this.refreshProfile()
+        }
+    }
+
+    componentWillUnmount() {
+        this.props.setStatus('')
+    }
+
     render() {
         return (
-            <Profile status={this.props.status} updateStatus={this.props.updateStatus} profile={this.props.profile}/>
+            <Profile status={this.props.status} updateStatus={this.props.updateStatus} profile={this.props.profile}
+                     isOwner={!this.props.match.params.userId} savePhoto={this.props.savePhoto}/>
         )
     }
 
@@ -65,7 +83,9 @@ export default compose<ComponentType>(connect(mapStateToProps, {
     setUserProfile,
     getUserProfile,
     getStatus,
-    updateStatus
+    updateStatus,
+    setStatus,
+    savePhoto
 }), withRouter)(ProfileContainer)
 
 

@@ -22,9 +22,9 @@ const maxLength100 = maxLengthCreator(100)
 const Dialogs = (props: DialogsTypeProps) => {
     let dialogsElements = props.state.dialogs.map((dialog, id) => <DialogItem key={id} name={dialog.name}
                                                                               id={dialog.id}/>);
-    let messagesElements = props.state.messages.map((message, id) => <div>{message.message} </div>);
+    let messagesElements = props.state.messages.map((message, id) => <div key={id}>{message.message} </div>);
 
-    if (props.isAuth === false) return <Redirect to={'/login'}/>
+    if (!props.isAuth) return <Redirect to={'/login'}/>
 
     let addNewMessage = (values: FormDataType) => {
         props.addMessage(values.newMessageBody);

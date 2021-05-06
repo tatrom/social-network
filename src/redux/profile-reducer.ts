@@ -39,6 +39,12 @@ const profileReducer = (state: ProfilePageType = initialState, action: ProfileRe
         case 'DELETE_POST': {
             return {...state, posts: state.posts.filter(post => post.id !== action.postId)}
         }
+        case 'SAVE_PHOTO_SUCCESS': {
+            if (state.profile) {
+                return {...state, profile: {...state.profile, photos: action.photos}}
+            }
+            return {...state}
+        }
         default:
             return {...state}
     }
@@ -51,6 +57,7 @@ export type ProfileReducerTypes =
     | AddPostActionType
     | SetStatusActionType
     | DeletePostType
+    | savePhotosSuccessType
 
 export type ProfilePageType = {
     posts: Array<PostType>
@@ -86,6 +93,7 @@ export type ChangeTextActionType = ReturnType<typeof changeText>
 export type AddPostActionType = ReturnType<typeof addPost>
 export type SetStatusActionType = ReturnType<typeof setStatus>
 export type DeletePostType = ReturnType<typeof deletePost>
+export type savePhotosSuccessType = ReturnType<typeof savePhotosSuccess>
 
 //action creators
 
@@ -94,6 +102,10 @@ export const changeText = (text: string) => ({type: "CHANGE-TEXT", text: text} a
 export const setUserProfile = (profile: ProfileType) => ({type: "SET_USER_PROFILE", profile} as const)
 export const setStatus = (status: string) => ({type: 'SET-STATUS', status} as const)
 export const deletePost = (postId: number) => ({type: 'DELETE_POST', postId} as const)
+export const savePhotosSuccess = (photos: { small: string, large: string }) => ({
+    type: 'SAVE_PHOTO_SUCCESS',
+    photos
+} as const)
 
 
 //thunks
@@ -106,6 +118,14 @@ export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
     const response = await profileApi.updateStatus(status)
     if (response.data.resultCode === 0) {
         dispatch(setStatus(status))
+    }
+}
+
+export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
+    const response = await profileApi.savePhoto(file)
+    if (response.data.resultCode === 0) {
+        debugger;
+        dispatch(savePhotosSuccess(response.data.data.photos))
     }
 }
 

@@ -1,7 +1,7 @@
 import React, {ComponentType} from 'react';
 import './App.css';
 import {compose} from "redux";
-import {BrowserRouter, HashRouter, withRouter} from "react-router-dom";
+import {HashRouter, withRouter} from "react-router-dom";
 import App from "./App";
 import {InitializeApp} from "./redux/app-reducer";
 import {connect, Provider} from "react-redux";
@@ -18,7 +18,7 @@ export const AppContainer = compose<ComponentType>(withRouter,
 export const SamuraiJSApp = () => {
     return <HashRouter>
         <Provider store={store}>
-            <HashRouter/>
+            <AppContainer/>
         </Provider>
     </HashRouter>
 }

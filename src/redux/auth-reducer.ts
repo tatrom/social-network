@@ -1,5 +1,5 @@
-import {authApi} from "../api/api";
-import {ProfileReducerTypes, setStatus, setUserProfile} from "./profile-reducer";
+import {authApi, profileApi} from "../api/api";
+import {setUserProfile} from "./profile-reducer";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {stopSubmit} from "redux-form";
@@ -40,7 +40,7 @@ export const setAuthUserData = (userId: string | null, email: string | null, log
 
 // thunks
 export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
-    authApi.setProfile(userId).then(response => {
+    profileApi.getProfile(userId).then(response => {
         dispatch(setUserProfile(response.data))
     })
 }
