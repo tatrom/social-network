@@ -13,7 +13,7 @@ let initialState = {
     isAuth: false,
 }
 
-export const authReducer = (state: UserDataType = initialState, action: ActionType): UserDataType => {
+export const authReducer = (state: UserDataType = initialState, action: AuthReducerActionType): UserDataType => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -25,8 +25,8 @@ export const authReducer = (state: UserDataType = initialState, action: ActionTy
     }
 }
 
-type ActionType = SetAuthUserDataType
-type SetAuthUserDataType = ReturnType<typeof setAuthUserData>
+export type AuthReducerActionType = SetAuthUserDataType
+export type SetAuthUserDataType = ReturnType<typeof setAuthUserData>
 export type UserDataType = {
     userId: null | string
     email: null | string
@@ -45,14 +45,14 @@ export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
     })
 }
 
-export const getAuthUserData = () => async (dispatch: Dispatch<ActionType>) => {
+export const getAuthUserData = () => async (dispatch: Dispatch<AuthReducerActionType>) => {
     let response = await authApi.me()
     if (response.data.resultCode === 0) {
         let {id, login, email} = response.data.data
         dispatch(setAuthUserData(id, email, login, true))
     }
 }
-export const login = (email: string, password: string, rememberMe: boolean): ThunkAction<void, ActionType, unknown, any> => async (dispatch) => {
+export const login = (email: string, password: string, rememberMe: boolean): ThunkAction<void, AuthReducerActionType, unknown, any> => async (dispatch) => {
     const response = await authApi.login(email, password, rememberMe)
     if (response.data.resultCode === 0) {
         await dispatch(getAuthUserData())
@@ -62,7 +62,7 @@ export const login = (email: string, password: string, rememberMe: boolean): Thu
     }
 }
 
-export const logout = (): ThunkAction<void, ActionType, unknown, ActionType> => async (dispatch) => {
+export const logout = (): ThunkAction<void, AuthReducerActionType, unknown, AuthReducerActionType> => async (dispatch) => {
     const response = await authApi.logout()
     if (response.data.resultCode === 0) {
         dispatch(setAuthUserData(null, null, null, false))

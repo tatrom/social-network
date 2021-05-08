@@ -9,7 +9,6 @@ import {Textarea} from "../common/FormsControls/FormsControls";
 
 type DialogsTypeProps = {
     state: MessagesPageType
-    updateNewMessage: (text: string) => void
     addMessage: (message: string) => void
     isAuth: boolean
 }
@@ -19,15 +18,15 @@ type FormDataType = {
 }
 
 const maxLength100 = maxLengthCreator(100)
-const Dialogs = (props: DialogsTypeProps) => {
-    let dialogsElements = props.state.dialogs.map((dialog, id) => <DialogItem key={id} name={dialog.name}
-                                                                              id={dialog.id}/>);
-    let messagesElements = props.state.messages.map((message, id) => <div key={id}>{message.message} </div>);
+const Dialogs: React.FC<DialogsTypeProps> = ({isAuth, state, addMessage}) => {
+    let dialogsElements = state.dialogs.map((dialog, id) => <DialogItem key={id} name={dialog.name}
+                                                                        id={dialog.id}/>);
+    let messagesElements = state.messages.map((message, id) => <div key={id}>{message.message} </div>);
 
-    if (!props.isAuth) return <Redirect to={'/login'}/>
+    if (!isAuth) return <Redirect to={'/login'}/>
 
     let addNewMessage = (values: FormDataType) => {
-        props.addMessage(values.newMessageBody);
+        addMessage(values.newMessageBody);
     }
     return <div>
         <div className={s.dialogs}>

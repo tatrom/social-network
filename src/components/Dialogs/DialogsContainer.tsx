@@ -22,4 +22,4 @@ let mapDispatchToProps = (dispatch: (action: MessagesReducerType) => void) => {
 }
 
 
-export default compose<any>(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(Dialogs)
+export default compose<ComponentType>(withAuthRedirect, connect(mapStateToProps, mapDispatchToProps))(Dialogs)

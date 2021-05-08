@@ -1,8 +1,8 @@
 import React from 'react'
 import {reduxForm, InjectedFormProps, Field} from "redux-form";
-import { requiredField} from "../../Utils/Validators/validators";
+import {requiredField} from "../../Utils/Validators/validators";
 import {Input} from "../common/FormsControls/FormsControls";
-import {connect, useDispatch} from "react-redux";
+import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import {Redirect} from "react-router-dom";
 import {AppRootStateType} from "../../redux/redux-store";
@@ -27,7 +27,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <div><Field type="checkbox" name={'rememberMe'} component={"input"}/>
                 remember me
             </div>
-            { props.error && <div className={style.formSummaryError}>
+            {props.error && <div className={style.formSummaryError}>
                 {props.error}
             </div>}
             <div>

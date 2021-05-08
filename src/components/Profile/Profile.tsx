@@ -9,12 +9,13 @@ type ProfilePropsType = {
     isOwner: boolean
     updateStatus: (status: string) => void
     savePhoto: (file: File) => void
+    saveProfile: (profile: ProfileType) => Promise<void>
 }
 
 function Profile(props: ProfilePropsType) {
     return (
         <div>
-            <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus} isOwner={props.isOwner} savePhoto={props.savePhoto} />
+            <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus} isOwner={props.isOwner} savePhoto={props.savePhoto} saveProfile={props.saveProfile} />
 
             <MySuperPostContainer/>
         </div>
